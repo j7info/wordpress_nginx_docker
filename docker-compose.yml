@@ -7,7 +7,7 @@ services:
     ports:
       - "8082:80"
     volumes:
-      - ./nginx:/etc/nginx/conf.d
+      - nginx:/etc/nginx/conf.d
     depends_on:
       - wordpress
     restart: on-failure
@@ -36,7 +36,7 @@ services:
       - db
 
   wordpress:
-    image: wordpress
+    image: wordpress:latest
     container_name: ${APP_NAME:?err}-wordpress
     restart: always
     ports:
@@ -47,4 +47,8 @@ services:
       WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD:?err}
       WORDPRESS_DB_NAME: ${MARIADB_DATABASE:?err}
     volumes:
-      - ./wordpress:/var/www/html
+      - wordpress:/var/www/html
+volumes:
+  nginx:
+  db_data:
+  wordpress:
